@@ -3,7 +3,7 @@ import ComingSoon from '../shared/ComingSoon.jsx'
 export default function BillingPage() {
   return (
     <ComingSoon
-      title="Clara Billing"
+      title="Billing Agent"
       icon="💳"
       tagline="Overdue invoice nudger with tone calibration."
       buildWeek="Week 4"

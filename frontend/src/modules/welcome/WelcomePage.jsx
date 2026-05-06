@@ -3,7 +3,7 @@ import ComingSoon from '../shared/ComingSoon.jsx'
 export default function WelcomePage() {
   return (
     <ComingSoon
-      title="Clara Welcome"
+      title="Onboarding Agent"
       icon="👋"
       tagline="New customer onboarding message + checklist."
       buildWeek="Week 3"

@@ -3,7 +3,7 @@ import ComingSoon from '../shared/ComingSoon.jsx'
 export default function BookingsPage() {
   return (
     <ComingSoon
-      title="Clara Bookings"
+      title="Booking Agent"
       icon="📅"
       tagline="Cancelled booking win-back drafter with reschedule offers."
       buildWeek="Week 5"

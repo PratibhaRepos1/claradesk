@@ -3,7 +3,7 @@ import ComingSoon from '../shared/ComingSoon.jsx'
 export default function ReviewsPage() {
   return (
     <ComingSoon
-      title="Clara Reviews"
+      title="Review Agent"
       icon="⭐"
       tagline="Negative review response drafter with public + internal outputs."
       buildWeek="Week 6"

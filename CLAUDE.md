@@ -19,12 +19,12 @@ teams can focus on what matters.
 
 | Module | Route | Feature | Status |
 |--------|-------|---------|--------|
-| Clara Inbox | /inbox | Contact form classifier + Slack router | Build first |
-| Clara Leads | /leads | New lead follow-up email writer | Build second |
-| Clara Welcome | /welcome | New customer onboarding message | Build third |
-| Clara Billing | /billing | Overdue invoice nudger | Build fourth |
-| Clara Bookings | /bookings | Cancelled booking win-back drafter | Build fifth |
-| Clara Reviews | /reviews | Negative review response drafter | Build sixth |
+| Inbox Agent | /inbox | Contact form classifier + Slack router | Build first |
+| Lead Agent | /leads | New lead follow-up email writer | Build second |
+| Onboarding Agent | /welcome | New customer onboarding message | Build third |
+| Billing Agent | /billing | Overdue invoice nudger | Build fourth |
+| Booking Agent | /bookings | Cancelled booking win-back drafter | Build fifth |
+| Review Agent | /reviews | Negative review response drafter | Build sixth |
 
 All 6 modules share:
 - One React frontend (Vite + React 18 + Tailwind CSS)
@@ -69,22 +69,22 @@ claradesk/
 │   │   │   └── SlackBadge.jsx        # Slack posted indicator
 │   │   └── modules/
 │   │       ├── inbox/
-│   │       │   ├── InboxPage.jsx     # Clara Inbox — contact form router
+│   │       │   ├── InboxPage.jsx     # Inbox Agent — contact form router
 │   │       │   └── InboxForm.jsx
 │   │       ├── leads/
-│   │       │   ├── LeadsPage.jsx     # Clara Leads — lead follow-up writer
+│   │       │   ├── LeadsPage.jsx     # Lead Agent — lead follow-up writer
 │   │       │   └── LeadsForm.jsx
 │   │       ├── welcome/
-│   │       │   ├── WelcomePage.jsx   # Clara Welcome — onboarding message
+│   │       │   ├── WelcomePage.jsx   # Onboarding Agent — onboarding message
 │   │       │   └── WelcomeForm.jsx
 │   │       ├── billing/
-│   │       │   ├── BillingPage.jsx   # Clara Billing — invoice nudger
+│   │       │   ├── BillingPage.jsx   # Billing Agent — invoice nudger
 │   │       │   └── BillingForm.jsx
 │   │       ├── bookings/
-│   │       │   ├── BookingsPage.jsx  # Clara Bookings — win-back drafter
+│   │       │   ├── BookingsPage.jsx  # Booking Agent — win-back drafter
 │   │       │   └── BookingsForm.jsx
 │   │       └── reviews/
-│   │           ├── ReviewsPage.jsx   # Clara Reviews — review responder
+│   │           ├── ReviewsPage.jsx   # Review Agent — review responder
 │   │           └── ReviewsForm.jsx
 │   ├── index.html
 │   ├── package.json
@@ -127,25 +127,25 @@ File: `backend/.env`
 # Anthropic
 ANTHROPIC_API_KEY=sk-ant-xxxxxxxxxxxxxxxx
 
-# Slack — Clara Inbox (contact form router)
+# Slack — Inbox Agent (contact form router)
 SLACK_SALES_WEBHOOK=https://hooks.slack.com/services/xxx
 SLACK_SUPPORT_WEBHOOK=https://hooks.slack.com/services/xxx
 SLACK_PARTNERSHIP_WEBHOOK=https://hooks.slack.com/services/xxx
 SLACK_SPAM_WEBHOOK=https://hooks.slack.com/services/xxx
 
-# Slack — Clara Leads
+# Slack — Lead Agent
 SLACK_LEADS_WEBHOOK=https://hooks.slack.com/services/xxx
 
-# Slack — Clara Welcome
+# Slack — Onboarding Agent
 SLACK_ONBOARDING_WEBHOOK=https://hooks.slack.com/services/xxx
 
-# Slack — Clara Billing
+# Slack — Billing Agent
 SLACK_BILLING_WEBHOOK=https://hooks.slack.com/services/xxx
 
-# Slack — Clara Bookings
+# Slack — Booking Agent
 SLACK_BOOKINGS_WEBHOOK=https://hooks.slack.com/services/xxx
 
-# Slack — Clara Reviews
+# Slack — Review Agent
 SLACK_REVIEWS_WEBHOOK=https://hooks.slack.com/services/xxx
 ```
 
@@ -279,7 +279,7 @@ def post_to_slack(webhook_env_key: str, title: str, fields: dict, context: str =
 
 ## Module Specs — Build One at a Time
 
-### Module 1 — Clara Inbox (/api/inbox/classify)
+### Module 1 — Inbox Agent (/api/inbox/classify)
 
 **Trigger:** Contact form submitted
 **Input:** name, email, message
@@ -303,7 +303,7 @@ Respond ONLY with JSON:
 
 ---
 
-### Module 2 — Clara Leads (/api/leads/draft)
+### Module 2 — Lead Agent (/api/leads/draft)
 
 **Trigger:** New lead form submitted
 **Input:** name, email, inquiry_details, company (optional)
@@ -323,7 +323,7 @@ Respond ONLY with JSON:
 
 ---
 
-### Module 3 — Clara Welcome (/api/welcome/draft)
+### Module 3 — Onboarding Agent (/api/welcome/draft)
 
 **Trigger:** New subscription / signup
 **Input:** customer_name, email, product_plan, company (optional)
@@ -343,7 +343,7 @@ Respond ONLY with JSON:
 
 ---
 
-### Module 4 — Clara Billing (/api/billing/nudge)
+### Module 4 — Billing Agent (/api/billing/nudge)
 
 **Trigger:** Invoice flagged overdue
 **Input:** invoice_number, amount, days_overdue, customer_name, customer_email
@@ -372,7 +372,7 @@ Respond ONLY with JSON:
 
 ---
 
-### Module 5 — Clara Bookings (/api/bookings/winback)
+### Module 5 — Booking Agent (/api/bookings/winback)
 
 **Trigger:** Appointment / booking cancelled
 **Input:** customer_name, service_type, cancellation_reason, original_date, booking_history
@@ -393,7 +393,7 @@ Respond ONLY with JSON:
 
 ---
 
-### Module 6 — Clara Reviews (/api/reviews/draft)
+### Module 6 — Review Agent (/api/reviews/draft)
 
 **Trigger:** Negative review detected (1-2 stars)
 **Input:** reviewer_name, rating, review_text, platform (google/yelp/tripadvisor)
@@ -452,12 +452,12 @@ export default function App() {
 ```jsx
 // Sidebar shows all 6 Clara modules
 const modules = [
-  { path: '/inbox',    label: 'Clara Inbox',    icon: '📬', desc: 'Route enquiries' },
-  { path: '/leads',    label: 'Clara Leads',    icon: '🎯', desc: 'Follow-up emails' },
-  { path: '/welcome',  label: 'Clara Welcome',  icon: '👋', desc: 'Onboarding' },
-  { path: '/billing',  label: 'Clara Billing',  icon: '💳', desc: 'Invoice nudger' },
-  { path: '/bookings', label: 'Clara Bookings', icon: '📅', desc: 'Win-back drafts' },
-  { path: '/reviews',  label: 'Clara Reviews',  icon: '⭐', desc: 'Review replies' },
+  { path: '/inbox',    label: 'Inbox Agent',    icon: '📬', desc: 'Route enquiries' },
+  { path: '/leads',    label: 'Lead Agent',    icon: '🎯', desc: 'Follow-up emails' },
+  { path: '/welcome',  label: 'Onboarding Agent',  icon: '👋', desc: 'Onboarding' },
+  { path: '/billing',  label: 'Billing Agent',  icon: '💳', desc: 'Invoice nudger' },
+  { path: '/bookings', label: 'Booking Agent', icon: '📅', desc: 'Win-back drafts' },
+  { path: '/reviews',  label: 'Review Agent',  icon: '⭐', desc: 'Review replies' },
 ]
 ```
 
@@ -492,12 +492,12 @@ export default {
 
 | Week | Module | New concepts learned |
 |------|--------|---------------------|
-| Week 1 | Clara Inbox | React Router, Layout, Sidebar, shared backend structure |
-| Week 2 | Clara Leads | Multi-field forms, email preview component |
-| Week 3 | Clara Welcome | Checklist rendering, plan-based personalisation |
-| Week 4 | Clara Billing | Days calculation, conditional tone display |
-| Week 5 | Clara Bookings | Booking history mock data, suggested times display |
-| Week 6 | Clara Reviews | Dual output panel (public + internal) |
+| Week 1 | Inbox Agent | React Router, Layout, Sidebar, shared backend structure |
+| Week 2 | Lead Agent | Multi-field forms, email preview component |
+| Week 3 | Onboarding Agent | Checklist rendering, plan-based personalisation |
+| Week 4 | Billing Agent | Days calculation, conditional tone display |
+| Week 5 | Booking Agent | Booking history mock data, suggested times display |
+| Week 6 | Review Agent | Dual output panel (public + internal) |
 
 ---
 
@@ -556,7 +556,7 @@ This means you can test all Claude AI output without setting up Slack first.
 Contact Form Router (the original standalone version):
 - GitHub: https://github.com/PratibhaRepos1/contact-form-router
 - This repo stays live as a standalone portfolio piece
-- Clara Inbox is a rebuilt, improved version of the same feature
+- Inbox Agent is a rebuilt, improved version of the same feature
 - Both can be shown to recruiters — they demonstrate natural progression
 
 ---

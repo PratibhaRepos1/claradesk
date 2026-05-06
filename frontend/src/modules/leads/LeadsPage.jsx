@@ -3,7 +3,7 @@ import ComingSoon from '../shared/ComingSoon.jsx'
 export default function LeadsPage() {
   return (
     <ComingSoon
-      title="Clara Leads"
+      title="Lead Agent"
       icon="🎯"
       tagline="New lead follow-up email writer."
       buildWeek="Week 2"
