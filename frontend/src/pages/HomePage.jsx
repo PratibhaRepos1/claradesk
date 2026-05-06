@@ -1,5 +1,7 @@
 import { Link } from 'react-router-dom'
 
+import { BLOG_POSTS } from '../data/blogPosts.js'
+
 const PRODUCTS = [
   {
     path: '/inbox',
@@ -154,6 +156,7 @@ export default function HomePage() {
             <a href="#solutions" className="hover:text-clara-magenta">Solutions</a>
             <a href="#bundle"    className="hover:text-clara-magenta">Bundle</a>
             <a href="#reviews"   className="hover:text-clara-magenta">Reviews</a>
+            <a href="#blog"      className="hover:text-clara-magenta">Blog</a>
             <a href="#faq"       className="hover:text-clara-magenta">FAQ</a>
           </nav>
 
@@ -427,8 +430,64 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/* From the blog */}
+      <section id="blog" className="bg-white border-y border-clara-purple/10">
+        <div className="mx-auto max-w-7xl px-6 py-20">
+          <div className="flex items-end justify-between flex-wrap gap-4 mb-10">
+            <div>
+              <span className="text-xs font-bold uppercase tracking-widest text-clara-magenta">From the blog</span>
+              <h2 className="font-display text-4xl font-extrabold mt-2 text-clara-deep">
+                Why Clara, in our own words.
+              </h2>
+              <p className="mt-3 text-clara-ink/70 max-w-2xl">
+                Short reads on what our agents do, how they pay for themselves, and what is happening under the hood.
+              </p>
+            </div>
+          </div>
+
+          <div className="grid md:grid-cols-2 gap-6">
+            {BLOG_POSTS.map((post) => (
+              <Link
+                key={post.slug}
+                to={`/blog/${post.slug}`}
+                className="group rounded-3xl bg-clara-cream border border-clara-purple/10 overflow-hidden hover:-translate-y-1 hover:shadow-clara transition flex flex-col"
+              >
+                <div className={`relative h-32 bg-gradient-to-br ${post.accent} flex items-center justify-between px-6`}>
+                  <div className="flex items-center gap-2">
+                    <span className="text-4xl drop-shadow-md" aria-hidden="true">{post.icon}</span>
+                    <span className="rounded-full bg-white/90 px-3 py-1 text-[11px] font-bold text-clara-deep">
+                      {post.agent}
+                    </span>
+                  </div>
+                  <span className="rounded-full bg-white/20 backdrop-blur border border-white/30 px-3 py-1 text-[11px] font-bold uppercase tracking-widest text-white">
+                    {post.eyebrow}
+                  </span>
+                </div>
+
+                <div className="p-6 flex flex-col flex-1">
+                  <h3 className="font-display text-xl font-extrabold text-clara-deep leading-snug group-hover:text-clara-magenta transition">
+                    {post.title}
+                  </h3>
+                  <p className="mt-3 text-sm text-clara-ink/70 leading-relaxed line-clamp-3">
+                    {post.excerpt}
+                  </p>
+                  <div className="mt-auto pt-5 flex items-center justify-between text-xs">
+                    <span className="text-clara-ink/50">
+                      {post.readMinutes} min read · {post.publishedOn}
+                    </span>
+                    <span className="font-semibold text-clara-magenta group-hover:text-clara-pink">
+                      Read more →
+                    </span>
+                  </div>
+                </div>
+              </Link>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* Final CTA */}
-      <section className="mx-auto max-w-7xl px-6 pb-24">
+      <section className="mx-auto max-w-7xl px-6 pb-24 pt-20">
         <div className="rounded-3xl bg-clara-gradient p-12 lg:p-16 text-center text-white shadow-clara">
           <h2 className="font-display text-4xl lg:text-5xl font-extrabold">
             Ready to sell smarter?
@@ -478,6 +537,7 @@ export default function HomePage() {
             <ul className="space-y-2 text-sm">
               <li><a href="#bundle"  className="hover:text-clara-sky">Bundle</a></li>
               <li><a href="#reviews" className="hover:text-clara-sky">Reviews</a></li>
+              <li><a href="#blog"    className="hover:text-clara-sky">Blog</a></li>
               <li><a href="#faq"     className="hover:text-clara-sky">FAQ</a></li>
               <li>
                 <a href="https://pratibharepos1.github.io/crafted-by-pratibha/" target="_blank" rel="noreferrer" className="hover:text-clara-sky">
