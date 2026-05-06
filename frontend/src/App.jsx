@@ -3,6 +3,8 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import Layout from './components/Layout.jsx'
 import HomePage from './pages/HomePage.jsx'
 import BlogPage from './pages/BlogPage.jsx'
+import PricingPage from './pages/PricingPage.jsx'
+import SetupPage from './pages/SetupPage.jsx'
 import InboxPage from './modules/inbox/InboxPage.jsx'
 import LeadsPage from './modules/leads/LeadsPage.jsx'
 import WelcomePage from './modules/welcome/WelcomePage.jsx'
@@ -15,6 +17,8 @@ export default function App() {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<HomePage />} />
+        <Route path="/pricing" element={<PricingPage />} />
+        <Route path="/setup" element={<SetupPage />} />
         <Route path="/blog/:slug" element={<BlogPage />} />
         <Route element={<Layout />}>
           <Route path="inbox"    element={<InboxPage />} />

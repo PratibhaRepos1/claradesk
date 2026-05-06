@@ -39,7 +39,8 @@ export default function BlogPage() {
 
           <nav className="hidden md:flex items-center gap-8 text-sm font-medium text-clara-ink/80">
             <Link to="/#solutions" className="hover:text-clara-magenta">Solutions</Link>
-            <Link to="/#bundle"    className="hover:text-clara-magenta">Bundle</Link>
+            <Link to="/pricing"    className="hover:text-clara-magenta">Pricing</Link>
+            <Link to="/setup"      className="hover:text-clara-magenta">Setup</Link>
             <Link to="/#blog"      className="hover:text-clara-magenta">Blog</Link>
             <Link to="/#faq"       className="hover:text-clara-magenta">FAQ</Link>
           </nav>
@@ -157,6 +158,11 @@ export default function BlogPage() {
             <span className="grid place-items-center w-9 h-9 rounded-xl bg-clara-gradient text-white font-bold">C</span>
             <span className="font-display text-xl font-extrabold text-white">ClaraDesk</span>
           </Link>
+          <div className="flex items-center gap-6 text-sm">
+            <Link to="/pricing" className="hover:text-clara-sky">Pricing</Link>
+            <Link to="/setup"   className="hover:text-clara-sky">Setup</Link>
+            <Link to="/#blog"   className="hover:text-clara-sky">Blog</Link>
+          </div>
           <span className="text-xs text-white/50">© {new Date().getFullYear()} ClaraDesk · Made by Pratibha Jadhav</span>
         </div>
       </footer>

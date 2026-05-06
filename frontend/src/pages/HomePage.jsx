@@ -154,8 +154,8 @@ export default function HomePage() {
 
           <nav className="hidden md:flex items-center gap-8 text-sm font-medium text-clara-ink/80">
             <a href="#solutions" className="hover:text-clara-magenta">Solutions</a>
-            <a href="#bundle"    className="hover:text-clara-magenta">Bundle</a>
-            <a href="#reviews"   className="hover:text-clara-magenta">Reviews</a>
+            <Link to="/pricing"  className="hover:text-clara-magenta">Pricing</Link>
+            <Link to="/setup"    className="hover:text-clara-magenta">Setup</Link>
             <a href="#blog"      className="hover:text-clara-magenta">Blog</a>
             <a href="#faq"       className="hover:text-clara-magenta">FAQ</a>
           </nav>
@@ -203,12 +203,12 @@ export default function HomePage() {
               >
                 Start with Inbox Agent →
               </Link>
-              <a
-                href="#solutions"
+              <Link
+                to="/pricing"
                 className="rounded-full border-2 border-clara-purple px-7 py-3.5 text-sm font-semibold text-clara-purple hover:bg-clara-purple hover:text-white transition"
               >
-                See all 6 solutions
-              </a>
+                See pricing
+              </Link>
             </div>
 
             <div className="mt-10 flex flex-wrap items-center gap-6 text-xs text-clara-ink/60">
@@ -354,17 +354,17 @@ export default function HomePage() {
               </p>
               <div className="mt-6 flex flex-wrap gap-3">
                 <Link
-                  to="/inbox"
+                  to="/pricing"
                   className="rounded-full bg-white px-7 py-3.5 text-sm font-bold text-clara-purple hover:scale-[1.02] transition"
                 >
                   Get the bundle →
                 </Link>
-                <a
-                  href="#faq"
+                <Link
+                  to="/setup"
                   className="rounded-full border-2 border-white/60 px-7 py-3.5 text-sm font-semibold text-white hover:bg-white/10 transition"
                 >
-                  How it works
-                </a>
+                  How setup works
+                </Link>
               </div>
             </div>
 
@@ -502,12 +502,12 @@ export default function HomePage() {
             >
               Try Clara free →
             </Link>
-            <a
-              href="#solutions"
+            <Link
+              to="/pricing"
               className="rounded-full border-2 border-white/70 px-8 py-4 text-sm font-bold text-white hover:bg-white/10 transition"
             >
-              Browse all 6
-            </a>
+              See pricing
+            </Link>
           </div>
         </div>
       </section>
@@ -535,6 +535,8 @@ export default function HomePage() {
           <div>
             <div className="font-semibold text-white mb-3">Company</div>
             <ul className="space-y-2 text-sm">
+              <li><Link to="/pricing" className="hover:text-clara-sky">Pricing</Link></li>
+              <li><Link to="/setup"   className="hover:text-clara-sky">Setup</Link></li>
               <li><a href="#bundle"  className="hover:text-clara-sky">Bundle</a></li>
               <li><a href="#reviews" className="hover:text-clara-sky">Reviews</a></li>
               <li><a href="#blog"    className="hover:text-clara-sky">Blog</a></li>
