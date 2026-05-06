@@ -10,8 +10,17 @@ class LeadsRequest(BaseModel):
     company: Optional[str] = Field(default=None, max_length=200)
 
 
-class LeadsResponse(BaseModel):
+class EmailVariant(BaseModel):
+    tone: Literal["friendly", "professional"]
     subject: str
     email_body: str
-    tone: Literal["friendly", "professional", "urgent"]
+    word_count: int
+
+
+class LeadsResponse(BaseModel):
+    lead_score: Literal["hot", "warm", "cold"]
+    score_reasoning: str
+    intent_tags: list[str]
+    next_action: str
+    variants: list[EmailVariant]
     slack_posted: bool
