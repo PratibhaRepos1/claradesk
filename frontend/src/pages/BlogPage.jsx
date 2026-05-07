@@ -37,12 +37,12 @@ export default function BlogPage() {
             <span className="font-display text-xl font-extrabold text-clara-deep">ClaraDesk</span>
           </Link>
 
-          <nav className="hidden md:flex items-center gap-8 text-sm font-medium text-clara-ink/80">
+          <nav className="hidden md:flex items-center gap-7 text-sm font-medium text-clara-ink/80">
             <Link to="/#solutions" className="hover:text-clara-magenta">Solutions</Link>
+            <Link to="/journey"    className="hover:text-clara-magenta">Journey</Link>
             <Link to="/pricing"    className="hover:text-clara-magenta">Pricing</Link>
             <Link to="/setup"      className="hover:text-clara-magenta">Setup</Link>
             <Link to="/#blog"      className="hover:text-clara-magenta">Blog</Link>
-            <Link to="/#faq"       className="hover:text-clara-magenta">FAQ</Link>
           </nav>
 
           <Link

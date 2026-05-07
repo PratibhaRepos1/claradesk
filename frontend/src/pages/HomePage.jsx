@@ -152,8 +152,9 @@ export default function HomePage() {
             <span className="font-display text-xl font-extrabold text-clara-deep">ClaraDesk</span>
           </Link>
 
-          <nav className="hidden md:flex items-center gap-8 text-sm font-medium text-clara-ink/80">
+          <nav className="hidden md:flex items-center gap-7 text-sm font-medium text-clara-ink/80">
             <a href="#solutions" className="hover:text-clara-magenta">Solutions</a>
+            <Link to="/journey"  className="hover:text-clara-magenta">Journey</Link>
             <Link to="/pricing"  className="hover:text-clara-magenta">Pricing</Link>
             <Link to="/setup"    className="hover:text-clara-magenta">Setup</Link>
             <a href="#blog"      className="hover:text-clara-magenta">Blog</a>
@@ -445,7 +446,7 @@ export default function HomePage() {
             </div>
           </div>
 
-          <div className="grid md:grid-cols-2 gap-6">
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             {BLOG_POSTS.map((post) => (
               <Link
                 key={post.slug}
@@ -535,6 +536,7 @@ export default function HomePage() {
           <div>
             <div className="font-semibold text-white mb-3">Company</div>
             <ul className="space-y-2 text-sm">
+              <li><Link to="/journey" className="hover:text-clara-sky">Journey demo</Link></li>
               <li><Link to="/pricing" className="hover:text-clara-sky">Pricing</Link></li>
               <li><Link to="/setup"   className="hover:text-clara-sky">Setup</Link></li>
               <li><a href="#bundle"  className="hover:text-clara-sky">Bundle</a></li>
