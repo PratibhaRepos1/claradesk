@@ -13,6 +13,14 @@ class BookingsRequest(BaseModel):
 
 class BookingsResponse(BaseModel):
     message_body: str
+    word_count: int
     suggested_times: List[str]
+    sms_variant: str
     tone: Literal["warm", "professional"]
+    winback_probability: Literal["high", "medium", "low"]
+    winback_reasoning: str
+    cancellation_category: Literal[
+        "schedule_conflict", "dissatisfaction", "financial", "external", "other"
+    ]
+    risk_factors: List[str]
     slack_posted: bool

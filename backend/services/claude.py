@@ -1,6 +1,7 @@
 import json
 import logging
 import os
+import re
 from functools import lru_cache
 
 import anthropic
@@ -8,6 +9,25 @@ import anthropic
 logger = logging.getLogger(__name__)
 
 MODEL_ID = "claude-sonnet-4-20250514"
+
+_FENCE_RE = re.compile(r"^\s*```(?:json)?\s*|\s*```\s*$", re.IGNORECASE)
+
+
+def parse_json_loose(text: str) -> dict:
+    """Parse JSON tolerant of leading/trailing prose and ```json fences.
+
+    Claude sometimes wraps structured responses in markdown fences even when the
+    system prompt says "JSON only". This helper strips fences and falls back to
+    extracting the outermost {...} block before raising.
+    """
+    cleaned = _FENCE_RE.sub("", text or "").strip()
+    try:
+        return json.loads(cleaned)
+    except json.JSONDecodeError:
+        start, end = cleaned.find("{"), cleaned.rfind("}")
+        if start != -1 and end != -1 and end > start:
+            return json.loads(cleaned[start : end + 1])
+        raise
 
 
 @lru_cache(maxsize=1)

@@ -1,4 +1,4 @@
-from typing import Literal
+from typing import Literal, Optional
 
 from pydantic import BaseModel, EmailStr, Field
 
@@ -14,5 +14,9 @@ class BillingRequest(BaseModel):
 class BillingResponse(BaseModel):
     subject: str
     email_body: str
+    word_count: int
     tone: Literal["friendly", "direct", "firm"]
+    recovery_probability: Literal["high", "medium", "low"]
+    recovery_reasoning: str
+    payment_plan_offer: Optional[str] = ""
     slack_posted: bool

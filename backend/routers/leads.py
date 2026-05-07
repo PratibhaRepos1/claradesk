@@ -7,7 +7,7 @@ import anthropic
 from fastapi import APIRouter, HTTPException
 
 from models.leads import EmailVariant, LeadsRequest, LeadsResponse
-from services.claude import MODEL_ID, _client
+from services.claude import MODEL_ID, _client, parse_json_loose
 from services.slack import post_to_slack
 
 logger = logging.getLogger(__name__)
@@ -61,22 +61,6 @@ WARM_KEYWORDS = (
 
 def _word_count(text: str) -> int:
     return len(re.findall(r"\b\w+\b", text or ""))
-
-
-_FENCE_RE = re.compile(r"^\s*```(?:json)?\s*|\s*```\s*$", re.IGNORECASE)
-
-
-def _parse_json_loose(text: str) -> dict:
-    """Parse JSON tolerant of leading/trailing prose and markdown fences."""
-    cleaned = _FENCE_RE.sub("", text).strip()
-    try:
-        return json.loads(cleaned)
-    except json.JSONDecodeError:
-        # Fall back to extracting the outermost {...}
-        start, end = cleaned.find("{"), cleaned.rfind("}")
-        if start != -1 and end != -1 and end > start:
-            return json.loads(cleaned[start : end + 1])
-        raise
 
 
 def _mock_enabled() -> bool:
@@ -171,7 +155,7 @@ def _draft_for(payload: LeadsRequest) -> dict:
             system=SYSTEM_PROMPT,
             messages=[{"role": "user", "content": user_message}],
         )
-        return _parse_json_loose(response.content[0].text)
+        return parse_json_loose(response.content[0].text)
     except (anthropic.APIError, anthropic.APIConnectionError, json.JSONDecodeError) as exc:
         logger.warning("Anthropic API unavailable (%s) — falling back to mock Lead draft.", exc)
         return _mock_draft(payload.name, payload.inquiry_details, payload.company)
